@@ -1,0 +1,156 @@
+body {
+    background-color: #ffffff;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    width:100%;
+    background-color: #006064;
+    padding: 1em 0;
+    text-align: center;
+
+}
+
+header .logo{
+    max-width: 150px;
+}
+
+main{
+    width: 80%;
+    max-width: 1200px;
+    padding: 2em;
+    background-color: #f4f4f9;
+    margin: 20px 0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.content{
+    color: #333;
+}
+
+h1{
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: #222;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 2em;
+    color: #555;
+}
+
+input[type="url"]{
+    width: 400px;
+    padding: 0.5em;
+    border: 2px solid #4a4e69;
+    border-radius: 5px;
+    margin-right: 0.5em;
+}
+
+button{
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a4e69;
+    color: #f4f4f9;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.importance-section{
+    width: 80%;
+    max-width: 1200px;
+    padding: 2em;
+    background-color: #dcdcdd;
+    margin: 20px 0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.importance-section h2{
+    font-size: 2em;
+    margin-bottom: 1em;
+    color: #222;
+}
+
+.importance-section p{
+    font-size: 1.2em;
+    color: #555;
+}
+
+.footer {
+    width:80%;
+    max-width:1200px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: 2em 0;
+
+}
+.footer-section{
+    flex:1;
+    margin:0 1em;
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+.footer-section:hover{
+    transform: translateY(-10px);
+}
+
+.footer-section h2{
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    text-align: center;
+    color:#4a4e69
+}
+.footer-section p {
+    font-size: 1em;
+    color: #555;
+    text-align: center;
+}
+
+.footer-section a {
+    display: inline-block;
+    margin-top: auto;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #4a4e69;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.footer-section a:hover {
+    background-color: #343a40;
+
+}
+
+@media (max-width: 768px){
+    .footer{
+        flex-direction: column;
+    
+    }
+    
+    .footer-section{
+    margin: 1em 0;
+    }
+
+    main, .importance-section{
+        width:95%;
+    }
+}
+
