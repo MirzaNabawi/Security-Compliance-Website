@@ -9,7 +9,7 @@ previous_results = {}
 def get_website_content(url):
     try: 
         headers= {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" # User-Agent header to avoid 403 Forbidden error and ensure compatibilty with older browsers
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" # User-Agent header to avoid 403 Forbidden error
         }
         response= requests.get(url, headers= headers)
         response.raise_for_status() # Check if the response if successful
@@ -53,7 +53,7 @@ def check_iso27001_compliance(https_compliant, web_news_count): # Function for I
     else:
         return False
 
-def scan_website(url): # Scanning the website for all the compliance checks and returning the result for PCI DSS, GDPR, ISO27001, Dark Web Exposure Score
+def scan_website(url): # Scanning the website for all the compilance checks and returning the result for GDPR, ISO27001, Dark Web Exposure Score
     global previous_results
 
     if url in previous_results:
