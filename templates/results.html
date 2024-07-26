@@ -1,116 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Results - WebCyOps</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
-        <style>
-                .results-container {
-                    text-align: center;
-                    padding: 2em;
-                    background-color: #f4f4f9;
-                    margin: 20px auto;
-                    width: 80%;
-                    max-width: 1200px;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                }
-                .result-item{
-                    margin: 1em 0;
-                }
-                .result-item img {
-                    width: 40px;
-                    vertical-align: middle;
-                    margin-right: 10px;
-                }
-                .result-text {
-                    font-size: 1.2em;
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-                .message {
-                    display: inline-block;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    font-size: 1.2em;
-                    margin-top: 20px;
-                }
-                .message-danger{
-                    background-color: #ffdddd;
-                    color: #d9534f;
-                }
-                .message-success{
-                    background-color: #dff0d8;
-                    color: #5cb85c;
-                }
-                .back-button{
-                    display: inline-block;
-                    margin-top: 20px;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    background-color: #4a4e69;
-                    color: #f4f4f9;
-                    text-decoration: none;
-                    font-size: 1.2em;
-                }
-                .back-button:hover{
-                    background-color: #3b3e54;
-                }
-        </style>
-    </head>
-    <body>
-        <header>
-            <img src="{{ url_for('static', filename='images/logo.svg')}}" alt="WebCyOps" class="logo">
-        
-        </header>
-        <main>
-            <div class="results-container">
-                <h1>
-                    Compliance Check Result 
-                </h1>
-                <p>
-                    URL: {{ result.url }}
-                </p>
-                <h2>
-                    PCI DSS Compliance Check:
-                </h2>
-                <p>
-                    HTTPS Compliant: {{ 'Yes' if result.https_compliant else 'No'}}
-                </p>
-                {% if result.errors %}
-                    <p>Errors:</p>
-                    <ul>
-                        {% for error in result.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>The Website Appears to be compliant with the Basic PCI DSS Requirements.</p>
-                {% endif %}
-                <h2>GDPR Compliance Monitoring:</h2>
-                <p>GDPR Compliant: {{ 'Yes' if result.gdpr_compliant else 'No'}} </p>
-                <h2>ISO27001 Compliance Monitoring:</h2>
-                <p>ISO27001 Compliant: {{ 'Yes' if result.iso27001_compliant else 'No' }}</p>
-                <h2>Dark Web Exposure Monitoring:</h2>
-                <p>Dark Web Exposure Score: {{ result.dark_web_exposure_score }}%</p>
-                {% if not result.https_compliant %}
-                <div class="message message-danger">
-                    This Website is under HIGH RISK of getting Hacked!<br>
-                    The Dark Web Exposure is also Above 50% indicating exposure to Unwanted traffic causing damage to your website. 
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - WebCyOps</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .results-container {
+            text-align: center;
+            padding: 2em;
+            background-color: #f4f4f9;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .result-item {
+            margin: 1em 0;
+        }
+        .result-item img {
+            width: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .result-text {
+            font-size: 1.2em;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .message {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .message-danger {
+            background-color: #ffdddd;
+            color: #d9534f;
+        }
+        .message-success {
+            background-color: #dff0d8;
+            color: #5cb85c;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #4a4e69;
+            color: #f4f4f9;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .back-button:hover {
+            background-color: #3b3e54;
+        }
+        .highlight-danger {
+            color: #d9534f;
+        }
+        .highlight-success {
+            color: #5cb85c;
+        }
+        .risk-warning {
+            background-color: #ffdddd;
+            color: #d9534f;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="WebCyOps" class="logo">
+    </header>
+    <main>
+        <div class="results-container">
+            <h1>Compliance Check Result</h1>
+            <p>URL: {{ result.url }}</p>
+            <h2>PCI DSS Compliance Check:</h2>
+            <p>HTTPS Compliant: <span class="{{ 'highlight-success' if result.https_compliant else 'highlight-danger' }}">{{ 'Yes' if result.https_compliant else 'No' }}</span></p>
+            <p>Firewall Compliant: <span class="{{ 'highlight-success' if result.firewall_compliant else 'highlight-danger' }}">{{ 'Yes' if result.firewall_compliant else 'No' }}</span></p>
+            <p>Default Passwords Compliant: <span class="{{ 'highlight-success' if result.default_passwords_compliant else 'highlight-danger' }}">{{ 'Yes' if result.default_passwords_compliant else 'No' }}</span></p>
+            <p>PCI DSS Compliant: <span class="{{ 'highlight-success' if result.pci_dss_compliant else 'highlight-danger' }}">{{ 'Yes' if result.pci_dss_compliant else 'No' }}</span></p>
+            {% if result.errors %}
+                <p class="highlight-danger">Errors:</p>
+                <div>
+                    {% for error in result.errors %}
+                        {% if error == "Website does not use HTTPS" %}
+                            <p class="highlight-danger">{{ error }}</p>
+                            <p class="highlight-danger">SSL/TLS Encryption for Data Communication is not present, attackers might steal user confidential data.</p>
+                        {% else %}
+                            <p class="highlight-danger">{{ error }}</p>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                {% elif result.https_compliant %}
+            {% endif %}
+            <h2>GDPR Compliance Monitoring:</h2>
+            <p>GDPR Compliant: <span class="{{ 'highlight-success' if result.gdpr_compliant else 'highlight-danger' }}">{{ 'Yes' if result.gdpr_compliant else 'No' }}</span></p>
+            {% if not result.gdpr_compliant %}
+                <p class="highlight-danger">This website is not GDPR compliant, which means it might be mishandling personal data. Non-compliance can lead to data breaches and legal issues.</p>
+            {% endif %}
+            <h2>ISO27001 Compliance Monitoring:</h2>
+            <p>ISO27001 Compliant: <span class="{{ 'highlight-success' if result.iso27001_compliant else 'highlight-danger' }}">{{ 'Yes' if result.iso27001_compliant else 'No' }}</span></p>
+            {% if not result.iso27001_compliant %}
+                <p class="highlight-danger">This website does not meet ISO27001 standards, indicating potential weaknesses in its information security management system, making it vulnerable to attacks.</p>
+            {% endif %}
+            <h2>Dark Web Exposure Monitoring:</h2>
+            <p>Dark Web Exposure Score: {{ result.dark_web_exposure_score }}%</p>
+            {% if not result.https_compliant %}
+                <div class="risk-warning">
+                    This Website is under HIGH RISK of getting Hacked!<br>
+                    The Dark Web Exposure is also Above 50% indicating exposure to unwanted traffic causing damage to your website.
+                </div>
+            {% elif result.https_compliant %}
                 <div class="message message-success">
                     This Website is Safe from Hackers!<br>
-                    The Dark Web Exposure is also less than 20% so your website has a Strong Basic Security Compliance Policy keeping it Safe From Hackers.
+                    The Dark Web Exposure is also less than 20% so your website has a strong basic security compliance policy keeping it safe from hackers.
                 </div>
-                {% endif %}
-                <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
-                     
-            </div>
-
-        </main>
-    </body>
-
+            {% endif %}
+            <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
+        </div>
+    </main>
+</body>
 </html>
