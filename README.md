@@ -10,6 +10,7 @@ Our Security Compliance Checker is a Web Application designed to ensure your web
 + PCI-DSS Compliance Checks: Verify adherence to Payment Card Industry Data Security Standards.
 + GDPR Compliance Checks: Ensure your website complies with General Data Protection Regulation requirements.
 + ISO27001 Compliance Checks: Confirm your security practices align with ISO27001 standards.
++ Dark Web Exposure: Provides a Compliance Report of Laws along with Exposure to Hackers and the Dark Web.
 
 ## Usage
 Simply enter your website URL to receive an in-depth compliance report, highlighting areas for improvement and actionable recommendations.
