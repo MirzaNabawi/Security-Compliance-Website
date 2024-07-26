@@ -36,6 +36,8 @@ Install necessary dependencies
 ```bash
   pip install flask
   pip install requests
+  pip install beautifulsoup4
+  pip install googlesearch-python
 ```
 
 Open the extracted folder and in your terminal and type
